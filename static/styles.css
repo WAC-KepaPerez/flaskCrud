@@ -27,3 +27,11 @@ nav a {
 nav:hover {
     color: rgb(215, 222, 228);
 }
+#homeContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    max-height: 100vh;
+}
