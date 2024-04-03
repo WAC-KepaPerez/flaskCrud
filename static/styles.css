@@ -1,27 +1,8 @@
-   /* Style the table */
-   table {
+/* Style the table */
+table {
     width: 100%;
     border-collapse: collapse;
 }
-
-/* Style table header */
-/*th {
-    background-color: #f2f2f2;
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-}
-
-
-tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-
-td {
-    border: 1px solid #ddd;
-    padding: 8px;
-}*/
 
 .completed-green {
     color: green;
@@ -30,16 +11,19 @@ td {
 .not-completed-red {
     color: red;
 }
-nav{
+
+nav {
     display: flex;
     flex-direction: row;
     gap: 20px;
     flex-wrap: wrap;
 }
+
 nav a {
     text-decoration: none;
     color: aliceblue;
 }
-nav:hover{
+
+nav:hover {
     color: rgb(215, 222, 228);
 }
