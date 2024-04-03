@@ -3,6 +3,7 @@ from flask import Flask, redirect, render_template, request
 from models import Workouts,db
 import os
 from flask_migrate import Migrate
+import markdown
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@localhost/workouts'
@@ -13,6 +14,17 @@ migrate=Migrate(app,db)
 @app.route('/')
 def home():
     return render_template('index.html')
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+@app.route('/readme')
+def readme():
+    with open('readme.md', 'r') as file:
+        markdown_content = file.read()
+    html_content = markdown.markdown(markdown_content)
+    return render_template('readme.html', content=html_content)
 
 @app.route('/workouts')
 def index():

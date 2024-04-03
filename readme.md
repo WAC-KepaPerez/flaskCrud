@@ -1,4 +1,4 @@
-# WaixoWeb
+# FlaskCrud App
 
 This is a simple Flask application for tracking workouts.
 
@@ -7,25 +7,22 @@ This is a simple Flask application for tracking workouts.
 1. **Clone the repository:**
 
     ```bash
-    git clone https://github.com/WAC-KepaPerez/WaixoWeb/tree/kepaDemos
+    git clone https://github.com/WAC-KepaPerez/flaskCrud.git
     ```
 
 2. **Navigate to the project directory:**
 
     ```bash
-    cd WaixoWeb
+    cd flaskCrud
     ```
 
 3. **Set up a virtual environment (optional but recommended):**
 
     ```bash
-    # On Windows
     python -m venv venv
     venv\Scripts\activate
 
-    # On macOS/Linux
-    python3 -m venv venv
-    source venv/bin/activate
+e venv/bin/activate
     ```
 
 4. **Install the required dependencies:**
@@ -44,7 +41,6 @@ This is a simple Flask application for tracking workouts.
     ```bash
     python app.py
     ```
-
     The application will be accessible at `http://localhost:5000`.
 
 ## Usage
