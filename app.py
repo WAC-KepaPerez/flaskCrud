@@ -4,9 +4,14 @@ from models import Workouts,db
 import os
 from flask_migrate import Migrate
 import markdown
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@localhost/workouts'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@localhost/workouts'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URI')
 db.init_app(app)
 migrate=Migrate(app,db)
 
