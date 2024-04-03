@@ -1,17 +1,25 @@
-{% extends 'base.html'%}  
+{% extends 'base.html'%}
 {% block content %}
-
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+    <ul>
+    {% for category, message in messages %}
+        <li class="{{ category }}">{{ message }}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+{% endwith %}
 <br />
 <div id="homeContainer">
     <h1>Welcome this is the home!!</h1>
-    <br/>
-    <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdDIxdm5wdTVia3RycnNrNWFwNzdxNmUyNG5xcTY0Ym43am5janFhMiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/xTiIzJSKB4l7xTouE8/giphy.gif" alt="Hello There !!">
-    <br/>
-    <br/>
-    <a href="/workouts">
-        <button >Workouts</button>
+    <br />
+    <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdDIxdm5wdTVia3RycnNrNWFwNzdxNmUyNG5xcTY0Ym43am5janFhMiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/xTiIzJSKB4l7xTouE8/giphy.gif"
+        alt="Hello There !!">
+    <br />
+    <br />
+    <a href="{{ url_for('workouts') }}">
+        <button>Workouts</button>
     </a>
-
 </div>
 
-{% endblock%}  
+{% endblock%}

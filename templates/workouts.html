@@ -1,6 +1,15 @@
 
     {% extends 'base.html'%}  
     {% block content %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul>
+            {% for category, message in messages %}
+                <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
     <h1>All Workouts</h1>
     <h2>Total number of workouts: {{ workouts|length }}</h2>
     <table>
@@ -9,16 +18,16 @@
                 <th>ID</th>
                 <th>Name</th>
                 <th>Reps</th>
-                <th>Description</th>
+                <th>Created</th>
             </tr>
         </thead>
         <tbody>
             {% for workout in workouts %}
             <tr>
                 <td>{{ workout.id }}</td>
-                <td><a href="/workouts/{{ workout.id }}">{{ workout.name }}</a></td>
+                <td><a href="{{url_for('view_workout',workout_id=workout.id)}}">{{ workout.name }}</a></td>
                 <td>{{ workout.reps }}</td>
-                <td>{{ workout.description }}</td>
+                <td>{{ workout.created }}</td>
                 <td class="{% if workout.completed %}completed-green{% else %}not-completed-red{% endif %}">{{
                     workout.completed }}</td>
                 <td>

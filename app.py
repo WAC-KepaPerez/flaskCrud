@@ -1,20 +1,35 @@
 import base64
-from flask import Flask, redirect, render_template, request
-from models import Workouts,db
+from flask import Flask, redirect, render_template, request, flash
+from models import Workouts,db,User
 import os
 from flask_migrate import Migrate
 import markdown
 from dotenv import load_dotenv
 import os
-
+from sqlalchemy.exc import IntegrityError
+from auth import auth_bp  # Import the auth blueprint
 load_dotenv()
+from flask_login import LoginManager,login_required,current_user
 
 app = Flask(__name__)
+app.secret_key = 'your_secret_key_here'
+
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@localhost/workouts'
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URI')
 db.init_app(app)
 migrate=Migrate(app,db)
 
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+login_manager.login_view = 'auth.login'
+
+@login_manager.user_loader
+def load_user(user_id):
+    print(User.query.get(int(user_id)))
+    return User.query.get(int(user_id))
+
+app.register_blueprint(auth_bp, url_prefix='/')
 
 @app.route('/')
 def home():
@@ -30,10 +45,10 @@ def readme():
         markdown_content = file.read()
     html_content = markdown.markdown(markdown_content)
     return render_template('readme.html', content=html_content)
-
 @app.route('/workouts')
-def index():
-    workouts = Workouts.query.all()
+@login_required
+def workouts():
+    workouts = Workouts.query.filter_by(user_id=current_user.id).all()
     return render_template('workouts.html', workouts=workouts)
 
 @app.route('/workouts/<int:workout_id>')
@@ -50,13 +65,15 @@ def add_workout():
     description = request.form['description']
     
     # Create a new Workout object with the form data
-    new_workout = Workouts(name=name, reps=reps, description=description)
+    new_workout = Workouts(name=name, reps=reps, description=description,user_id=current_user.id)
     
     # Add the new workout to the database session
     db.session.add(new_workout)
     db.session.commit()
     # Redirect to the workouts page to display the updated list of workouts
     return redirect('/workouts')
+
+
 
 # Define route to handle workout deletion
 @app.route('/delete_workout', methods=['POST'])
@@ -90,19 +107,7 @@ def update_workout(workout_id):
     
     # Redirect back to the workout details page
     return redirect(f'/workouts')
-@app.route('/save_images', methods=['POST'])
-def download_and_save():
-     # Obtener las imágenes codificadas en base64 desde la solicitud POST
-    images_base64 = [request.form[key] for key in request.form]
-    if not os.path.exists('uploads_'):
-        os.makedirs('uploads')
-    # Guardar cada imagen en un archivo
-    for index, image_base64 in enumerate(images_base64):
-        image_data = base64.b64decode(image_base64.split(',')[1])  # Decodificar la imagen desde su representación base64
-        with open(os.path.join('uploads', f'image_{index}.png'), 'wb') as file:
-            file.write(image_data)
 
-    return 'Imágenes guardadas correctamente'
 
 @app.errorhandler(404)
 def page_not_found(e):

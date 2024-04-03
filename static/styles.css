@@ -35,3 +35,13 @@ nav:hover {
     min-height: 80vh;
     max-height: 100vh;
 }
+#iconLogo{
+    height: 50px;
+}
+
+.success{
+    color: green;
+}
+.error{
+    color: red;
+}

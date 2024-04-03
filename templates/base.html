@@ -4,11 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/static/styles.css" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}" />
     <title>Workouts</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css">
 </head>
 <body>
+    <center>
+        <a href="{{url_for('home')}}">
+            <img id="iconLogo" src="{{ url_for('static', filename='images/logo.png') }}"
+            alt="Icon Logo">
+        </a>
+
+    </center>
     {% include 'navbar.html'%}
     {% block content %}
     {% endblock%}
@@ -16,5 +23,5 @@
         <p>Author: Kepa Pérez<br>
       </footer>
 </body>
-
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </html>
