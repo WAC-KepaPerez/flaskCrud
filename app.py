@@ -10,9 +10,6 @@ db.init_app(app)
 migrate=Migrate(app,db)
 
 
-@app.route('/form')
-def form():
-    return render_template('form.html')
 @app.route('/')
 def home():
     return render_template('index.html')

@@ -1,3 +1,4 @@
 /uploads
-/ve
+/venv
 /migrations
+/__pycache__
