@@ -1,0 +1,48 @@
+
+    {% extends 'base.html'%}  
+    {% block content %}
+    <h1>All Workouts</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Reps</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for workout in workouts %}
+            <tr>
+                <td>{{ workout.id }}</td>
+                <td><a href="/workouts/{{ workout.id }}">{{ workout.name }}</a></td>
+                <td>{{ workout.reps }}</td>
+                <td>{{ workout.description }}</td>
+                <td class="{% if workout.completed %}completed-green{% else %}not-completed-red{% endif %}">{{
+                    workout.completed }}</td>
+                <td>
+                    <!-- Form to delete the workout -->
+                    <form action="/delete_workout" method="post">
+                        <input type="hidden" name="workout_id" value="{{ workout.id }}">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <!-- Form to add new workout -->
+    <h2>Add New Workout</h2>
+    <form action="/add_workout" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="reps">Reps:</label>
+        <input type="number" id="reps" name="reps" required><br><br>
+
+        <label for="description">Description:</label><br>
+        <textarea id="description" name="description" rows="4" cols="50" required></textarea><br><br>
+
+        <input type="submit" value="Add Workout">
+    </form>
+    {% endblock%}  

@@ -1,0 +1,19 @@
+{% extends 'base.html'%}  
+{% block content %}
+    <h1>Workout Details</h1>
+    <form action="/workouts/{{ workout.id }}/update" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" value="{{ workout.name }}"><br><br>
+        
+        <label for="reps">Reps:</label>
+        <input type="text" id="reps" name="reps" value="{{ workout.reps }}"><br><br>
+        
+        <label for="description">Description:</label><br>
+        <textarea id="description" name="description" rows="4" cols="50">{{ workout.description }}</textarea><br><br>
+        
+        <label for="completed">Completed:</label>
+        <input type="checkbox" id="completed" name="completed" {% if workout.completed %}checked{% endif %}><br><br>
+        
+        <input type="submit" value="Update">
+    </form>
+{% endblock%}  

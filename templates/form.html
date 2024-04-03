@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapport Maker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/4.5.0/fabric.min.js"></script>
+    <style>
+        body {
+            background-color: #f5f5f5;
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+            padding: 20px;
+            margin: 0;
+        }
+        #container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            padding: 20px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        h1, h2 {
+            color: #005a87;
+        }
+        p {
+            line-height: 1.6;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Rapport Maker</h1>
+        <p>Esta herramienta te permite obtener un rapport a partir de una imagen.</p>
+    </div>
+
+    <br>
+
+    <div id="container">
+        <h2>Imagen original</h2>
+        <p>Carga la imagen que deseas recortar.</p>
+    <input type="file" id="upload" accept="image/*">
+    </div>
+
+    <br><br>
+
+    <div id="container">
+        <h2>Selecciona la región</h2>
+        <p>Haz clic y arrastra manteniendo presionado para crear el recorte. Debes cerrar el círculo.</p>
+        <p><b>Si por lo que sea no funciona bien, recargar la web y volver a intentarlo hasta que funcione.</b></p>
+    <canvas id="mainCanvas" width=400 height=300></canvas>
+    </div>
+    <br>
+    <!-- <button id="reset">Reset</button> -->
+
+    <br><br>
+
+    <div id="container">
+        <h2>Líneas de corte</h2>
+        <p>Ahora sobre esa región haz dos líneas de corte que la atraviesen.</p>
+        <p><b>IMPORTANTE: para evitar problemas, intentar que las líneas de corte salgan de y lleguen a los bordes del canvas y no solo de la región.</b> La zona de la línea que está fuera de la región no afecta al resultado, pero si no existe puede generar errores en el código.</p>
+    <canvas id="canvas2" width=400 height=300></canvas>
+    </div>
+
+    <br><br>
+
+    <div id="container">
+        <h2>Guardar imágenes en local</h2>
+        <p>Las imágenes que ves debajo se guardarán en la subcarpeta "entrada" de tu carpeta "WaixoWeb"</p>
+    <button id="downloadButton">Save Images</button>
+    </div>
+
+    <br><br>
+
+    <div id="container">
+        <h2>Generar rapport</h2>
+        <p>Con las imágenes que has guardado genera el rapport final (tarda unos 5 segundos)</p>
+    <a href="/generate_rapport" target="_blank">
+        <button id="generateRapportButton">Generar Rapport</button>
+    </a>    
+    </div>
+</body>
+<style>
+    body{ background-color: white; }
+    canvas{border:1px dashed orange;}
+</style>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+<footer>
+    <br>
+    <p>We Are Clickers - 2024</p>
+</footer>
+</html>
